@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 @Component
 public class HelloRepository {
-
+    private static final int DEAD_LINE_TIME = 2;
     private final HelloApiGrpc.HelloApiBlockingStub blockingStub;
 
     @Autowired
@@ -27,7 +29,9 @@ public class HelloRepository {
         Hello.HelloRequest request = Hello.HelloRequest.newBuilder()
                 .setName(name)
                 .build();
-        return this.blockingStub.say(request);
+        return this.blockingStub
+                .withDeadlineAfter(DEAD_LINE_TIME, SECONDS)
+                .say(request);
     }
 
 }
