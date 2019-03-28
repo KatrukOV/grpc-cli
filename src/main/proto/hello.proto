@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package hello;
+
+option java_multiple_files = false;
+option java_package = "com.katruk.grpc.cli.client.pb";
+option java_outer_classname = "Hello";
+
+service HelloApi {
+    rpc say (HelloRequest) returns (HelloResponse);
+}
+
+message HelloRequest {
+    string name = 1;
+}
+
+message HelloResponse {
+    string greeting = 1;
+}
