@@ -68,6 +68,7 @@ public final class Hello {
     getDescriptor() {
         return descriptor;
     }
+
     public interface HelloRequestOrBuilder extends
             // @@protoc_insertion_point(interface_extends:hello.HelloRequest)
             com.google.protobuf.MessageOrBuilder {
@@ -132,6 +133,7 @@ public final class Hello {
         private HelloRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
             super(builder);
         }
+
         private HelloRequest() {
             name_ = "";
         }
@@ -678,6 +680,7 @@ public final class Hello {
         private HelloResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
             super(builder);
         }
+
         private HelloResponse() {
             greeting_ = "";
         }
