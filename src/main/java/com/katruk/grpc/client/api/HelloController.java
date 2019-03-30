@@ -27,4 +27,14 @@ public class HelloController {
         return result;
     }
 
+    @GetMapping(value = "/many")
+    public String path(@RequestParam int count, @RequestParam String name) {
+        for (int i = 0; i < count; i++) {
+            LocalDateTime start = LocalDateTime.now();
+            String result = this.helloService.say(name + "_" + i);
+            log.info("Result: {}, TimeOF: {}", result, Duration.between(start, now()));
+        }
+        return "Done";
+    }
+
 }
