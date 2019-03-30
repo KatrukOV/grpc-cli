@@ -11,8 +11,13 @@ public class HelloService {
 
     private final HelloRepository helloRepository;
 
-    public String say(final String name) {
-        Hello.HelloResponse say = this.helloRepository.say(name);
+    public String trySay(final String name) {
+        Hello.HelloResponse say = this.helloRepository.trySay(name);
+        return say.getGreeting();
+    }
+
+    public String cfSay(final String name) {
+        Hello.HelloResponse say = this.helloRepository.cfSay(name);
         return say.getGreeting();
     }
 

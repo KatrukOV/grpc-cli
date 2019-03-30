@@ -20,18 +20,28 @@ public class HelloController {
     private final HelloService helloService;
 
     @GetMapping(value = "/")
-    public String path(@RequestParam String name) {
+    public String say(@RequestParam String name) {
         LocalDateTime start = LocalDateTime.now();
-        String result = this.helloService.say(name);
+        String result = this.helloService.trySay(name);
         log.info("Result: {}, TimeOF: {}", result, Duration.between(start, now()));
         return result;
     }
 
-    @GetMapping(value = "/many")
-    public String path(@RequestParam int count, @RequestParam String name) {
+    @GetMapping(value = "/many-try")
+    public String trySay(@RequestParam int count, @RequestParam String name) {
         for (int i = 0; i < count; i++) {
             LocalDateTime start = LocalDateTime.now();
-            String result = this.helloService.say(name + "_" + i);
+            String result = this.helloService.trySay(name + "_" + i);
+            log.info("Result: {}, TimeOF: {}", result, Duration.between(start, now()));
+        }
+        return "Done";
+    }
+
+    @GetMapping(value = "/many-cf")
+    public String cfSay(@RequestParam int count, @RequestParam String name) {
+        for (int i = 0; i < count; i++) {
+            LocalDateTime start = LocalDateTime.now();
+            String result = this.helloService.cfSay(name + "_" + i);
             log.info("Result: {}, TimeOF: {}", result, Duration.between(start, now()));
         }
         return "Done";

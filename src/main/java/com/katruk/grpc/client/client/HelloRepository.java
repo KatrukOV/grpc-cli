@@ -15,7 +15,7 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 @Slf4j
 @Component
 public class HelloRepository {
-    private static final int DEAD_LINE_TIME = 1500;
+    private static final int DEAD_LINE_TIME = 50;
     private final HelloApiGrpc.HelloApiBlockingStub blockingStub;
 
     @Autowired
@@ -29,14 +29,14 @@ public class HelloRepository {
         );
     }
 
-    public Hello.HelloResponse say(final String name) throws RuntimeException {
+    public Hello.HelloResponse trySay(final String name) throws RuntimeException {
         Hello.HelloRequest request = Hello.HelloRequest.newBuilder()
                 .setName(name)
                 .build();
         try {
             return this.blockingStub
                     .withDeadlineAfter(DEAD_LINE_TIME, MILLISECONDS)
-                    .say(request);
+                    .trySay(request);
         } catch (StatusRuntimeException e) {
             if (e.getStatus().getCode().equals(Status.Code.UNKNOWN)) {
                 log.info("UNKNOWN: {}", e.getMessage());
@@ -48,7 +48,27 @@ public class HelloRepository {
             }
             throw e;
         }
+    }
 
+    public Hello.HelloResponse cfSay(final String name) throws RuntimeException {
+        Hello.HelloRequest request = Hello.HelloRequest.newBuilder()
+                .setName(name)
+                .build();
+        try {
+            return this.blockingStub
+                    .withDeadlineAfter(DEAD_LINE_TIME, MILLISECONDS)
+                    .cfSay(request);
+        } catch (StatusRuntimeException e) {
+            if (e.getStatus().getCode().equals(Status.Code.UNKNOWN)) {
+                log.info("UNKNOWN: {}", e.getMessage());
+                return Hello.HelloResponse.newBuilder().build();
+            }
+            if (e.getStatus().getCode().equals(Status.Code.DEADLINE_EXCEEDED)) {
+                log.info("DEADLINE_EXCEEDED: {}", e.getMessage());
+                return Hello.HelloResponse.newBuilder().build();
+            }
+            throw e;
+        }
     }
 
 }

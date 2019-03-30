@@ -7,7 +7,8 @@ option java_package = "com.katruk.grpc.client.client.pb";
 option java_outer_classname = "Hello";
 
 service HelloApi {
-    rpc say (HelloRequest) returns (HelloResponse);
+    rpc trySay (HelloRequest) returns (HelloResponse);
+    rpc cfSay (HelloRequest) returns (HelloResponse);
 }
 
 message HelloRequest {
