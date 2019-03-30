@@ -1,4 +1,4 @@
-package com.katruk.grpc.cli;
+package com.katruk.grpc.client;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

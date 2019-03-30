@@ -1,6 +1,6 @@
-package com.katruk.grpc.cli.api;
+package com.katruk.grpc.client.api;
 
-import com.katruk.grpc.cli.service.HelloService;
+import com.katruk.grpc.client.service.HelloService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;

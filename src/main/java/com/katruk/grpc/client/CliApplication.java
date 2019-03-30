@@ -1,4 +1,4 @@
-package com.katruk.grpc.cli;
+package com.katruk.grpc.client;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

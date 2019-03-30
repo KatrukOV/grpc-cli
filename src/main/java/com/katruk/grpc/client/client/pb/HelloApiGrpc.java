@@ -1,4 +1,4 @@
-package com.katruk.grpc.cli.client.pb;
+package com.katruk.grpc.client.client.pb;
 
 import static io.grpc.MethodDescriptor.generateFullMethodName;
 import static io.grpc.stub.ClientCalls.asyncUnaryCall;
@@ -17,8 +17,8 @@ public final class HelloApiGrpc {
     public static final String SERVICE_NAME = "hello.HelloApi";
     private static final int METHODID_SAY = 0;
     // Static method descriptors that strictly reflect the proto.
-    private static volatile io.grpc.MethodDescriptor<com.katruk.grpc.cli.client.pb.Hello.HelloRequest,
-            com.katruk.grpc.cli.client.pb.Hello.HelloResponse> getSayMethod;
+    private static volatile io.grpc.MethodDescriptor<com.katruk.grpc.client.client.pb.Hello.HelloRequest,
+            com.katruk.grpc.client.client.pb.Hello.HelloResponse> getSayMethod;
     private static volatile io.grpc.ServiceDescriptor serviceDescriptor;
 
     private HelloApiGrpc() {
@@ -26,25 +26,25 @@ public final class HelloApiGrpc {
 
     @io.grpc.stub.annotations.RpcMethod(
             fullMethodName = SERVICE_NAME + '/' + "say",
-            requestType = com.katruk.grpc.cli.client.pb.Hello.HelloRequest.class,
-            responseType = com.katruk.grpc.cli.client.pb.Hello.HelloResponse.class,
+            requestType = com.katruk.grpc.client.client.pb.Hello.HelloRequest.class,
+            responseType = com.katruk.grpc.client.client.pb.Hello.HelloResponse.class,
             methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-    public static io.grpc.MethodDescriptor<com.katruk.grpc.cli.client.pb.Hello.HelloRequest,
-            com.katruk.grpc.cli.client.pb.Hello.HelloResponse> getSayMethod() {
-        io.grpc.MethodDescriptor<com.katruk.grpc.cli.client.pb.Hello.HelloRequest, com.katruk.grpc.cli.client.pb.Hello.HelloResponse> getSayMethod;
+    public static io.grpc.MethodDescriptor<com.katruk.grpc.client.client.pb.Hello.HelloRequest,
+            com.katruk.grpc.client.client.pb.Hello.HelloResponse> getSayMethod() {
+        io.grpc.MethodDescriptor<com.katruk.grpc.client.client.pb.Hello.HelloRequest, com.katruk.grpc.client.client.pb.Hello.HelloResponse> getSayMethod;
         if ((getSayMethod = HelloApiGrpc.getSayMethod) == null) {
             synchronized (HelloApiGrpc.class) {
                 if ((getSayMethod = HelloApiGrpc.getSayMethod) == null) {
                     HelloApiGrpc.getSayMethod = getSayMethod =
-                            io.grpc.MethodDescriptor.<com.katruk.grpc.cli.client.pb.Hello.HelloRequest, com.katruk.grpc.cli.client.pb.Hello.HelloResponse>newBuilder()
+                            io.grpc.MethodDescriptor.<com.katruk.grpc.client.client.pb.Hello.HelloRequest, com.katruk.grpc.client.client.pb.Hello.HelloResponse>newBuilder()
                                     .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
                                     .setFullMethodName(generateFullMethodName(
                                             "hello.HelloApi", "say"))
                                     .setSampledToLocalTracing(true)
                                     .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                                            com.katruk.grpc.cli.client.pb.Hello.HelloRequest.getDefaultInstance()))
+                                            com.katruk.grpc.client.client.pb.Hello.HelloRequest.getDefaultInstance()))
                                     .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                                            com.katruk.grpc.cli.client.pb.Hello.HelloResponse.getDefaultInstance()))
+                                            com.katruk.grpc.client.client.pb.Hello.HelloResponse.getDefaultInstance()))
                                     .setSchemaDescriptor(new HelloApiMethodDescriptorSupplier("say"))
                                     .build();
                 }
@@ -98,8 +98,8 @@ public final class HelloApiGrpc {
 
         /**
          */
-        public void say(com.katruk.grpc.cli.client.pb.Hello.HelloRequest request,
-                        io.grpc.stub.StreamObserver<com.katruk.grpc.cli.client.pb.Hello.HelloResponse> responseObserver) {
+        public void say(com.katruk.grpc.client.client.pb.Hello.HelloRequest request,
+                        io.grpc.stub.StreamObserver<com.katruk.grpc.client.client.pb.Hello.HelloResponse> responseObserver) {
             asyncUnimplementedUnaryCall(getSayMethod(), responseObserver);
         }
 
@@ -110,8 +110,8 @@ public final class HelloApiGrpc {
                             getSayMethod(),
                             asyncUnaryCall(
                                     new MethodHandlers<
-                                            com.katruk.grpc.cli.client.pb.Hello.HelloRequest,
-                                            com.katruk.grpc.cli.client.pb.Hello.HelloResponse>(
+                                            com.katruk.grpc.client.client.pb.Hello.HelloRequest,
+                                            com.katruk.grpc.client.client.pb.Hello.HelloResponse>(
                                             this, METHODID_SAY)))
                     .build();
         }
@@ -137,8 +137,8 @@ public final class HelloApiGrpc {
 
         /**
          */
-        public void say(com.katruk.grpc.cli.client.pb.Hello.HelloRequest request,
-                        io.grpc.stub.StreamObserver<com.katruk.grpc.cli.client.pb.Hello.HelloResponse> responseObserver) {
+        public void say(com.katruk.grpc.client.client.pb.Hello.HelloRequest request,
+                        io.grpc.stub.StreamObserver<com.katruk.grpc.client.client.pb.Hello.HelloResponse> responseObserver) {
             asyncUnaryCall(
                     getChannel().newCall(getSayMethod(), getCallOptions()), request, responseObserver);
         }
@@ -164,7 +164,7 @@ public final class HelloApiGrpc {
 
         /**
          */
-        public com.katruk.grpc.cli.client.pb.Hello.HelloResponse say(com.katruk.grpc.cli.client.pb.Hello.HelloRequest request) {
+        public com.katruk.grpc.client.client.pb.Hello.HelloResponse say(com.katruk.grpc.client.client.pb.Hello.HelloRequest request) {
             return blockingUnaryCall(
                     getChannel(), getSayMethod(), getCallOptions(), request);
         }
@@ -190,8 +190,8 @@ public final class HelloApiGrpc {
 
         /**
          */
-        public com.google.common.util.concurrent.ListenableFuture<com.katruk.grpc.cli.client.pb.Hello.HelloResponse> say(
-                com.katruk.grpc.cli.client.pb.Hello.HelloRequest request) {
+        public com.google.common.util.concurrent.ListenableFuture<com.katruk.grpc.client.client.pb.Hello.HelloResponse> say(
+                com.katruk.grpc.client.client.pb.Hello.HelloRequest request) {
             return futureUnaryCall(
                     getChannel().newCall(getSayMethod(), getCallOptions()), request);
         }
@@ -215,8 +215,8 @@ public final class HelloApiGrpc {
         public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
             switch (methodId) {
                 case METHODID_SAY:
-                    serviceImpl.say((com.katruk.grpc.cli.client.pb.Hello.HelloRequest) request,
-                            (io.grpc.stub.StreamObserver<com.katruk.grpc.cli.client.pb.Hello.HelloResponse>) responseObserver);
+                    serviceImpl.say((com.katruk.grpc.client.client.pb.Hello.HelloRequest) request,
+                            (io.grpc.stub.StreamObserver<com.katruk.grpc.client.client.pb.Hello.HelloResponse>) responseObserver);
                     break;
                 default:
                     throw new AssertionError();
@@ -241,7 +241,7 @@ public final class HelloApiGrpc {
 
         @java.lang.Override
         public com.google.protobuf.Descriptors.FileDescriptor getFileDescriptor() {
-            return com.katruk.grpc.cli.client.pb.Hello.getDescriptor();
+            return com.katruk.grpc.client.client.pb.Hello.getDescriptor();
         }
 
         @java.lang.Override

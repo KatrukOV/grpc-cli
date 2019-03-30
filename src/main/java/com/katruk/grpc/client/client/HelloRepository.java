@@ -1,7 +1,7 @@
-package com.katruk.grpc.cli.client;
+package com.katruk.grpc.client.client;
 
-import com.katruk.grpc.cli.client.pb.Hello;
-import com.katruk.grpc.cli.client.pb.HelloApiGrpc;
+import com.katruk.grpc.client.client.pb.Hello;
+import com.katruk.grpc.client.client.pb.HelloApiGrpc;
 import io.grpc.ManagedChannelBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

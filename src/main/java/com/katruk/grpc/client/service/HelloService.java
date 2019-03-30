@@ -1,7 +1,7 @@
-package com.katruk.grpc.cli.service;
+package com.katruk.grpc.client.service;
 
-import com.katruk.grpc.cli.client.HelloRepository;
-import com.katruk.grpc.cli.client.pb.Hello;
+import com.katruk.grpc.client.client.HelloRepository;
+import com.katruk.grpc.client.client.pb.Hello;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
