@@ -12,13 +12,16 @@ public class HelloService {
     private final HelloRepository helloRepository;
 
     public String trySay(final String name) {
-        Hello.HelloResponse say = this.helloRepository.trySay(name);
-        return say.getGreeting();
+        return this.helloRepository.trySay(name)
+                .map(Hello.HelloResponse::getGreeting)
+                .orElse("Got error on " + name);
     }
 
     public String cfSay(final String name) {
-        Hello.HelloResponse say = this.helloRepository.cfSay(name);
-        return say.getGreeting();
+        return this.helloRepository.cfSay(name)
+                .map(Hello.HelloResponse::getGreeting)
+                .orElse("Got error on " + name);
+
     }
 
 }

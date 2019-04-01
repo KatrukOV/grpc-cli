@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 @Slf4j
@@ -29,46 +31,47 @@ public class HelloRepository {
         );
     }
 
-    public Hello.HelloResponse trySay(final String name) throws RuntimeException {
-        Hello.HelloRequest request = Hello.HelloRequest.newBuilder()
-                .setName(name)
-                .build();
+    public Optional<Hello.HelloResponse> trySay(final String name) throws RuntimeException {
         try {
-            return this.blockingStub
-                    .withDeadlineAfter(DEAD_LINE_TIME, MILLISECONDS)
-                    .trySay(request);
+            return Optional.of(
+                    this.blockingStub
+                            .withDeadlineAfter(DEAD_LINE_TIME, MILLISECONDS)
+                            .trySay(
+                                    Hello.HelloRequest.newBuilder()
+                                            .setName(name)
+                                            .build()
+                            )
+            );
         } catch (StatusRuntimeException e) {
-            if (e.getStatus().getCode().equals(Status.Code.UNKNOWN)) {
-                log.info("UNKNOWN: {}", e.getMessage());
-                return Hello.HelloResponse.newBuilder().build();
-            }
-            if (e.getStatus().getCode().equals(Status.Code.DEADLINE_EXCEEDED)) {
-                log.info("DEADLINE_EXCEEDED: {}", e.getMessage());
-                return Hello.HelloResponse.newBuilder().build();
-            }
-            throw e;
+            return catchException(e);
         }
     }
 
-    public Hello.HelloResponse cfSay(final String name) throws RuntimeException {
-        Hello.HelloRequest request = Hello.HelloRequest.newBuilder()
-                .setName(name)
-                .build();
+    public Optional<Hello.HelloResponse> cfSay(final String name) throws RuntimeException {
         try {
-            return this.blockingStub
-                    .withDeadlineAfter(DEAD_LINE_TIME, MILLISECONDS)
-                    .cfSay(request);
+            return Optional.of(
+                    this.blockingStub
+                            .withDeadlineAfter(DEAD_LINE_TIME, MILLISECONDS)
+                            .cfSay(Hello.HelloRequest.newBuilder()
+                                    .setName(name)
+                                    .build()
+                            )
+            );
         } catch (StatusRuntimeException e) {
-            if (e.getStatus().getCode().equals(Status.Code.UNKNOWN)) {
-                log.info("UNKNOWN: {}", e.getMessage());
-                return Hello.HelloResponse.newBuilder().build();
-            }
-            if (e.getStatus().getCode().equals(Status.Code.DEADLINE_EXCEEDED)) {
-                log.info("DEADLINE_EXCEEDED: {}", e.getMessage());
-                return Hello.HelloResponse.newBuilder().build();
-            }
-            throw e;
+            return catchException(e);
         }
+    }
+
+    private Optional<Hello.HelloResponse> catchException(StatusRuntimeException e) {
+        if (e.getStatus().getCode().equals(Status.Code.UNKNOWN)) {
+            log.error("UNKNOWN: {}", e.getMessage());
+            return Optional.empty();
+        }
+        if (e.getStatus().getCode().equals(Status.Code.DEADLINE_EXCEEDED)) {
+            log.warn("DEADLINE_EXCEEDED: {}", e.getMessage());
+            return Optional.empty();
+        }
+        throw e;
     }
 
 }
