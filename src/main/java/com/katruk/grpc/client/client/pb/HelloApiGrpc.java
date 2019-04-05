@@ -14,7 +14,7 @@ import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
         comments = "Source: hello.proto")
 public final class HelloApiGrpc {
 
-    public static final String SERVICE_NAME = "hello.HelloApi";
+    public static final String SERVICE_NAME = "grpc.client.HelloApi";
     private static final int METHODID_TRY_SAY = 0;
     private static final int METHODID_CF_SAY = 1;
     // Static method descriptors that strictly reflect the proto.
@@ -42,7 +42,7 @@ public final class HelloApiGrpc {
                             io.grpc.MethodDescriptor.<com.katruk.grpc.client.client.pb.Hello.HelloRequest, com.katruk.grpc.client.client.pb.Hello.HelloResponse>newBuilder()
                                     .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
                                     .setFullMethodName(generateFullMethodName(
-                                            "hello.HelloApi", "trySay"))
+                                            "grpc.client.HelloApi", "trySay"))
                                     .setSampledToLocalTracing(true)
                                     .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                                             com.katruk.grpc.client.client.pb.Hello.HelloRequest.getDefaultInstance()))
@@ -71,7 +71,7 @@ public final class HelloApiGrpc {
                             io.grpc.MethodDescriptor.<com.katruk.grpc.client.client.pb.Hello.HelloRequest, com.katruk.grpc.client.client.pb.Hello.HelloResponse>newBuilder()
                                     .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
                                     .setFullMethodName(generateFullMethodName(
-                                            "hello.HelloApi", "cfSay"))
+                                            "grpc.client.HelloApi", "cfSay"))
                                     .setSampledToLocalTracing(true)
                                     .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                                             com.katruk.grpc.client.client.pb.Hello.HelloRequest.getDefaultInstance()))

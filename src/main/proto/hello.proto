@@ -1,7 +1,8 @@
 syntax = "proto3";
 
-package hello;
+package grpc.client;
 
+option optimize_for = SPEED;
 option java_multiple_files = false;
 option java_package = "com.katruk.grpc.client.client.pb";
 option java_outer_classname = "Hello";
