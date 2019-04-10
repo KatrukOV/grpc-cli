@@ -11,13 +11,17 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
+import java.util.function.Function;
 
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 @Slf4j
 @Component
-public class HelloRepository {
+public class HelloRepository implements RetryRpc {
+
     private static final int DEAD_LINE_TIME = 50;
+    private static final int TRIES = 3;
+
     private final HelloApiGrpc.HelloApiBlockingStub blockingStub;
 
     @Autowired
@@ -32,16 +36,14 @@ public class HelloRepository {
     }
 
     public Optional<Hello.HelloResponse> trySay(final String name) throws RuntimeException {
+        Function<String, Hello.HelloResponse> commit = e -> this.blockingStub
+                .withDeadlineAfter(DEAD_LINE_TIME, MILLISECONDS)
+                .trySay(Hello.HelloRequest.newBuilder()
+                        .setName(e)
+                        .build()
+                );
         try {
-            return Optional.of(
-                    this.blockingStub
-                            .withDeadlineAfter(DEAD_LINE_TIME, MILLISECONDS)
-                            .trySay(
-                                    Hello.HelloRequest.newBuilder()
-                                            .setName(name)
-                                            .build()
-                            )
-            );
+            return retry(name, commit, TRIES);
         } catch (StatusRuntimeException e) {
             return catchException(e);
         }
@@ -65,6 +67,10 @@ public class HelloRepository {
     private Optional<Hello.HelloResponse> catchException(StatusRuntimeException e) {
         if (e.getStatus().getCode().equals(Status.Code.UNKNOWN)) {
             log.error("UNKNOWN: {}", e.getMessage());
+            return Optional.empty();
+        }
+        if (e.getStatus().getCode().equals(Status.Code.ABORTED)) {
+            log.warn("ABORTED: {}", e.getMessage());
             return Optional.empty();
         }
         if (e.getStatus().getCode().equals(Status.Code.DEADLINE_EXCEEDED)) {
