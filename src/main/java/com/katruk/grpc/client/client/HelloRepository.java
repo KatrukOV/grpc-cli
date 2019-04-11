@@ -17,7 +17,7 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 @Slf4j
 @Component
-public class HelloRepository implements RetryRpc, GeneralClient {
+public class HelloRepository extends RetryRpc implements GeneralClient {
 
     private static final int DEAD_LINE_TIME = 50;
     private static final int TRIES = 3;

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static java.time.LocalDateTime.now;
 
@@ -28,13 +29,12 @@ public class HelloController {
     }
 
     @GetMapping(value = "/many-try")
-    public String trySay(@RequestParam int count, @RequestParam String name) {
-        for (int i = 0; i < count; i++) {
-            LocalDateTime start = LocalDateTime.now();
-            String result = this.helloService.trySay(name + "_" + i);
-            log.info("Result: {}, TimeOF: {}", result, Duration.between(start, now()));
-        }
-        return "Done";
+    public int trySay(@RequestParam int count, @RequestParam String name) {
+        LocalDateTime start = LocalDateTime.now();
+        List<String> result = this.helloService.manyTry(count, name);
+        log.info("TimeOF: {} ", Duration.between(start, now()));
+        result.forEach(log::info);
+        return result.size();
     }
 
     @GetMapping(value = "/many-cf")
