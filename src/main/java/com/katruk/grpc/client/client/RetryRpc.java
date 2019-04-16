@@ -15,7 +15,7 @@ public abstract class RetryRpc {
                 log.info("T {} for {}", i, request);
                 return action.apply(request);
             } catch (Exception e) {
-                message = String.format("Can't receive after %d tries with error %s", tries, e.getMessage());
+                message = String.format("Can't receive response after %d tries. Error: %s", tries, e.getMessage());
                 try {
                     Thread.sleep(delay);
                 } catch (Exception ex) {
