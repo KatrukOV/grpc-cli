@@ -21,7 +21,7 @@ public class HelloRepository extends RetryRpc implements GeneralClient {
 
     private static final int DEAD_LINE_TIME = 50;
     private static final int TRIES = 3;
-
+    private static final int DELAY = 100;
     private final HelloApiGrpc.HelloApiBlockingStub blockingStub;
 
     @Autowired
@@ -42,7 +42,7 @@ public class HelloRepository extends RetryRpc implements GeneralClient {
                         .setName(e)
                         .build()
                 );
-        Function<String, Hello.HelloResponse> retry = e -> retry(name, action, TRIES);
+        Function<String, Hello.HelloResponse> retry = e -> retry(name, action, TRIES, DELAY);
         Consumer<StatusRuntimeException> logger = e -> log.warn(e.getMessage());
         return tryToDo(name, retry, logger);
     }
